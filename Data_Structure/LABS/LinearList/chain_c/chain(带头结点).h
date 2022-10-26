@@ -186,6 +186,19 @@ Status ListDelete(LinkList *L, int i, Elemtype *e)
     return OK;
 }
 
+Status ListDeleteNode(LinkList *L, LinkList p)
+{
+    LinkList q;
+    q = (*L)->next;
+    while (q->next != p)
+    {
+        q = q->next;
+    }
+    q->next = p->next;
+    free(p);
+    return OK;
+}
+
 Status ListTraverse(LinkList L)
 {
     LinkList p = L->next;
@@ -221,6 +234,21 @@ Status ListInsert(LinkList *L, int i, Elemtype e)
     s->next = p->next;
     p->next = s;
     return OK;
+}
+
+Status ListInsertNode(LinkList *L, Elemtype e)
+{
+    LinkList p, s;
+    p = (*L)->next;
+    s = (LinkList)malloc(sizeof(Node));
+    if (s == NULL)
+    {
+        return FALSE;
+    }
+    s->data = e;
+    s->next = p;
+    (*L)->next = s;
+    return OK
 }
 
 void PrintStatus(Status status, char s[])
