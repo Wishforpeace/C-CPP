@@ -24,6 +24,7 @@ public:
     {
         cout << "(" << X << "," << Y << ")" << endl;
     }
-} int main()
+};
+int main()
 {
 }
