@@ -24,6 +24,7 @@ public:
 
     Set operator|(const Set &s) const;
     bool operator=(const Set &s) const;
+    Set operator+(int i) const;
 };
 
 Set::~Set()
@@ -100,6 +101,27 @@ void Set::ShowElement() const
     }
     cout << endl;
 }
+
+Set Set::operator+(int e) const
+{
+    int *newset;
+    newset = new int[n + 1];
+    int i;
+    for (i = 0; i < n + 1; i++)
+    {
+        if (i < n)
+        {
+
+            newset[i] = this->set[i];
+        }
+        else
+        {
+            newset[i] = e;
+        }
+    }
+    Set NewSet(n + 1, newset);
+    return NewSet;
+}
 int main()
 {
     int a[] = {1, 2, 3, 5, 6};
@@ -133,4 +155,9 @@ int main()
     {
         cout << "A != C" << endl;
     }
+
+    int elem;
+    elem = 8;
+    cout << "集合A|B 加上元素" << elem << endl;
+    ((set1 | set2) + elem).ShowElement();
 }

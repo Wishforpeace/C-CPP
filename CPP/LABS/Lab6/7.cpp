@@ -9,6 +9,7 @@ protected:
 
 public:
     String(char *s);
+    void Display();
 };
 
 String::String(char *s)
@@ -20,6 +21,16 @@ String::String(char *s)
         this->string[i] = s[i];
     }
     // cout << this->len << endl;
+}
+
+void String::Display()
+{
+    int i;
+    for (i = 0; i < this->len; i++)
+    {
+        cout << this->string[i];
+    }
+    cout << endl;
 }
 class Edit : public String
 {
@@ -69,25 +80,69 @@ void Edit::ReplaceString(char *s, char *replace)
     {
         cout << "请正确输入子串" << endl;
     }
-    cout << location << endl;
     int len_replace, len_s;
     len_replace = strlen(replace);
     len_s = strlen(s);
     int i;
     int dist;
-    if (len_replace > len_s)
+
+    dist = len_replace - len_s;
+
+    for (i = location; i < location + len_replace; i++)
     {
-        dist = len_replace - len_s;
-        this->len = len + dist;
-        for (i = location + len_s; i < location + len_replace; i++)
+        this->string[i] = replace[i - location];
+    }
+    this->string[this->len + dist + 1] = '\0';
+    this->len += dist;
+}
+
+void Edit::ReplaceChar(char c, char replace)
+{
+    int i;
+    for (i = 0; i < this->len; i++)
+    {
+        if (this->string[i] == c)
         {
-            this->string[i + dist] = this->string[i];
+            string[i] = replace;
         }
     }
-    int j;
-    for (j = 0; j < this->len; j++)
+}
+
+void Edit::DeleteChar(char c)
+{
+    int i;
+    i = 0;
+    int last_len;
+    while (i <= this->len)
     {
-        cout << this->string[j];
+        if (this->len != last_len)
+        {
+            i--;
+        }
+        last_len = this->len;
+        if (this->string[i] == c)
+        {
+            this->string[i] = this->string[i + 1];
+            this->len--;
+        }
+        i++;
+    }
+}
+
+void Edit::DeleteString(char *s)
+{
+    int location;
+    if (!(this->isSubstring(s, &location)))
+    {
+        cout << "请正确输入子串" << endl;
+    }
+
+    int i;
+    int len_s = strlen(s);
+    for (i = location; i < location + len_s; i++)
+    {
+        this->string[i] = this->string[i + len_s];
+        this->len--;
     }
 }
 int main()
@@ -95,6 +150,19 @@ int main()
     char a[] = "hello world";
     Edit s1(a);
     char b[] = "world";
-    char replace[] = "C++wcnmd";
+    char replace[] = "C++";
+    s1.Display();
     s1.ReplaceString(b, replace);
+
+    s1.Display();
+
+    s1.ReplaceChar('e', 'a');
+    s1.Display();
+
+    s1.DeleteChar('+');
+    s1.Display();
+
+    char s[] = "hallo";
+    s1.DeleteString(s);
+    s1.Display();
 }
