@@ -2,11 +2,11 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-//超时
+// 超时
 class Solution1
 {
 public:
-    //暴力
+    // 暴力
     int maxSubArray(vector<int> &nums)
     {
         int i, j;
@@ -48,11 +48,11 @@ public:
 
         for (const auto &x : nums)
         {
-            //比较加上与不加上
-            // cout << "pre\t"
-            //      << "x\t"
-            //      << "pre+x" << endl;
-            // cout << pre << "\t" << x << "\t" << pre + x << endl;
+            // 比较加上与不加上
+            //  cout << "pre\t"
+            //       << "x\t"
+            //       << "pre+x" << endl;
+            //  cout << pre << "\t" << x << "\t" << pre + x << endl;
             pre = max(pre + x, x);
             // cout << "pre\t"
             //      << "maxAns" << endl;

@@ -6,9 +6,9 @@ using namespace std;
 class Solution
 {
 public:
-    bool validateStackSequences(vector<int> &pushed, vector<int> &popped)
+    bool validateStackSequences(vector<char> &pushed, vector<char> &popped)
     {
-        stack<int> st;
+        stack<char> st;
         int n = pushed.size();
         for (int i = 0, j = 0; i < n; i++)
         {
@@ -27,8 +27,8 @@ public:
 
 int main()
 {
-    vector<int> pushed = {1, 2, 3, 4, 5};
-    vector<int> popped = {4, 3, 5, 1, 2};
+    vector<char> pushed = {'a', 'b', 'c', 'd', 'e', 'f'};
+    vector<char> popped = {'f', 'e', 'd', 'c', 'b', 'a'};
     bool result;
     Solution solution;
     cout << solution.validateStackSequences(pushed, popped) << endl;

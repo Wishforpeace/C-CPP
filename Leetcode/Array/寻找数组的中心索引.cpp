@@ -11,6 +11,9 @@ public:
         cout << total;
     }
     int accumulate()
+    {
+        return 0;
+    }
 };
 int main()
 {

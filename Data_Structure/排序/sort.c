@@ -2,8 +2,18 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <sys/malloc.h>
 void PrintArray(int *a, int len);
 int Partition(int *a, int low, int high);
+void Swap(int *a, int *b)
+{
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// 插入排序
 void InsertSort(int *a, int length)
 {
     int i, j, tmp;
@@ -24,6 +34,7 @@ void InsertSort(int *a, int length)
         a[j + 1] = tmp;
     }
 }
+// 希尔排序
 void ShellSort(int *a, int length)
 {
     int i, j, tmp, h;
@@ -49,6 +60,7 @@ void ShellSort(int *a, int length)
     }
 }
 
+// 快速排序
 void QuickSort1(int *a, int start, int end)
 {
     if (start >= end)
@@ -112,6 +124,7 @@ int Partition(int *a, int low, int high)
     // PrintArray(a, 10);
     return low;
 }
+// 冒泡排序
 
 void BubbleSort(int *a, int len)
 {
@@ -165,7 +178,7 @@ void SelectSort(int *a, int len)
     }
 }
 
-int *b = (int *)malloc(sizeof(int) * 11);
+// int *b = (int *)malloc(sizeof(int) * 11);
 void Merge(int *a, int low, int mid, int high)
 {
 }
@@ -175,10 +188,48 @@ void MergeSort(int *a, int low, int high, int len)
     if (low < high)
     {
         int mid = (low + high) / 2;
-        MergeSort(a, low, mid);
-        MergeSort(a, mid + 1, high);
+        MergeSort(a, low, (low + high + 1) / 2, len);
+        MergeSort(a, mid + 1, high, len);
     }
 }
+
+// 堆排序
+void Heapify(int *a, int len, int i)
+{
+    // 记录根结点
+    int largest = i;
+    // 根据树在顺序表中的存储，找到左右孩子
+    int lson = i * 2 + 1;
+    int rson = i * 2 + 2;
+    if (lson < len && a[largest] < a[lson])
+        largest = lson;
+    if (rson < len && a[largest] < a[rson])
+        largest = rson;
+    // 如果最大值不是根结点，进行交换
+    if (largest != i)
+    {
+        Swap(&a[largest], &a[i]);
+        Heapify(a, len, largest); // 递归调用，维护交换过的位置
+    }
+}
+
+void HeapSort(int *a, int len)
+{
+    // 建堆
+    int i;
+    for (i = len / 2 - 1; i >= 0; i--)
+    {
+        Heapify(a, len, i);
+    }
+
+    // 排序
+    for (i = len - 1; i > 0; i--)
+    {
+        Swap(&a[0], &a[i]);
+        Heapify(a, i, 0);
+    }
+}
+
 void PrintArray(int *a, int len)
 {
     int i;
@@ -188,6 +239,7 @@ void PrintArray(int *a, int len)
     }
     printf("\n");
 }
+
 int main()
 {
     int array1[10] = {9, 5, 3, 1, 4, 7, 8, 0, 2, 6};
@@ -227,4 +279,6 @@ int main()
 
     int array8[10] = {9, 5, 3, 1, 4, 7, 8, 0, 2, 6};
     printf("HeapSort:\n");
+    HeapSort(array8, len);
+    PrintArray(array8, len);
 }

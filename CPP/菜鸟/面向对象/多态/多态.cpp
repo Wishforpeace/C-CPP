@@ -21,7 +21,7 @@ public:
     编译器查看指针内容而非类型，调用各自的函数
     */
 
-   //  定义虚函数，动态链接或后期绑定
+    //  定义虚函数，动态链接或后期绑定
     virtual int area()
     {
         cout << "Parent class area :" << endl;
